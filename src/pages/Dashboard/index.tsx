@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { Error } from '../../components/Error'
 import { Form } from '../../components/Form'
 import { Repositories } from '../../components/Repositories'
 import { api } from '../../services/api'
@@ -8,17 +9,32 @@ import * as S from './styles'
 
 export const Dashboard = () => {
   const [newRepo, setNewRepo] = React.useState('')
+  const [inputError, setInputError] = React.useState('')
+  const [isLoading, setIsLoading] = React.useState(false)
 
   const [repositories, setRepositories] = React.useState<Repository[]>([])
 
   async function handleAddRepository(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const response = await api.get<Repository>(`repos/${newRepo}`)
+    if (!newRepo) {
+      setInputError('Digite o autor/nome do repositório')
+      return
+    }
 
-    setRepositories([...repositories, response.data])
+    try {
+      setIsLoading(true)
+      const response = await api.get<Repository>(`repos/${newRepo}`)
 
-    setNewRepo('')
+      setRepositories([...repositories, response.data])
+
+      setNewRepo('')
+      setInputError('')
+      setIsLoading(false)
+    } catch (error) {
+      setInputError('Error na busca por esse repositório')
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -30,8 +46,16 @@ export const Dashboard = () => {
           handleAddRepository={handleAddRepository}
           newRepo={newRepo}
           setNewRepo={setNewRepo}
+          hasError={!!inputError}
+          isLoading={isLoading}
         />
       </S.Form>
+
+      {inputError && (
+        <S.Error>
+          <Error error={inputError} />
+        </S.Error>
+      )}
 
       <S.Repositories>
         <Repositories repositories={repositories} />

@@ -1,7 +1,9 @@
 import { shade } from 'polished'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-export const Form = styled.form`
+import { FormProps } from '../../utils/types'
+
+export const Form = styled.form<Partial<FormProps>>`
   display: flex;
 
   input {
@@ -11,6 +13,14 @@ export const Form = styled.form`
     padding: 0 24px;
     border: 0;
     border-radius: 5px 0 0 5px;
+    border: 2px solid #fff;
+    border-right: none;
+
+    ${({ hasError }) =>
+      hasError &&
+      css`
+        border-color: #c53030;
+      `}
 
     &::placeholder {
       color: #a8a8b3;

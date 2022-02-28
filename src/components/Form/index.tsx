@@ -7,16 +7,24 @@ export const Form = ({
   handleAddRepository,
   newRepo,
   setNewRepo,
+  hasError,
+  isLoading,
 }: FormProps) => {
   return (
-    <S.Form onSubmit={handleAddRepository}>
+    <S.Form onSubmit={handleAddRepository} hasError={hasError}>
       <input
         type="text"
         placeholder="Digite o nome do repositório"
         value={newRepo}
         onChange={({ target }) => setNewRepo(target.value)}
       />
-      <button type="submit">Pesquisar</button>
+      {isLoading ? (
+        <button type="button" disabled>
+          Pesquisando...
+        </button>
+      ) : (
+        <button type="submit">Pesquisar</button>
+      )}
     </S.Form>
   )
 }

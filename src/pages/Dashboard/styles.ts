@@ -16,3 +16,7 @@ export const Form = styled.section`
 export const Repositories = styled.section`
   margin-top: 80px;
 `
+
+export const Error = styled.div`
+  margin-top: 8px;
+`
