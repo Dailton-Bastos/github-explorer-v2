@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Dashboard } from './pages/Dashboard'
 import { Repository } from './pages/Repository'
+import GlobalStyles from './styles/global'
 
 export const App = () => {
   return (
@@ -11,6 +12,8 @@ export const App = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/repository" element={<Repository />} />
       </Routes>
+
+      <GlobalStyles />
     </BrowserRouter>
   )
 }
