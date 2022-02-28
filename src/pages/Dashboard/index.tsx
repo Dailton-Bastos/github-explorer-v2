@@ -12,7 +12,17 @@ export const Dashboard = () => {
   const [inputError, setInputError] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
 
-  const [repositories, setRepositories] = React.useState<Repository[]>([])
+  const [repositories, setRepositories] = React.useState<Repository[]>(() => {
+    const storagedRepositories = window.localStorage.getItem(
+      '@GithubExplorer:repositories'
+    )
+
+    if (storagedRepositories) {
+      return JSON.parse(storagedRepositories)
+    }
+
+    return []
+  })
 
   async function handleAddRepository(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -36,6 +46,13 @@ export const Dashboard = () => {
       setIsLoading(false)
     }
   }
+
+  React.useEffect(() => {
+    window.localStorage.setItem(
+      '@GithubExplorer:repositories',
+      JSON.stringify(repositories)
+    )
+  }, [repositories])
 
   return (
     <>
