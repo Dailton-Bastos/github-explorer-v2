@@ -1,50 +1,28 @@
 import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
 
+import { Repository } from '../../utils/types'
 import * as S from './styles'
 
-export const Repositories = () => {
+interface RepositoriesProps {
+  repositories: Repository[]
+}
+
+export const Repositories = ({ repositories = [] }: RepositoriesProps) => {
   return (
     <S.Repositories>
-      <a href="#">
-        <img
-          src="https://avatars.githubusercontent.com/u/36246937?v=4"
-          alt="Dailton Bastos"
-        />
+      {repositories.map((repository) => (
+        <a href={repository.html_url} key={repository.id}>
+          <img src={repository.owner.avatar_url} alt={repository.owner.login} />
 
-        <div>
-          <strong>Dailton Bastos</strong>
-          <p>Alguma coisa alguma coisa</p>
-        </div>
+          <div>
+            <strong>{repository.full_name}</strong>
+            <p>{repository.description}</p>
+          </div>
 
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </a>
-      <a href="#">
-        <img
-          src="https://avatars.githubusercontent.com/u/36246937?v=4"
-          alt="Dailton Bastos"
-        />
-
-        <div>
-          <strong>Dailton Bastos</strong>
-          <p>Alguma coisa alguma coisa</p>
-        </div>
-
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </a>
-      <a href="#">
-        <img
-          src="https://avatars.githubusercontent.com/u/36246937?v=4"
-          alt="Dailton Bastos"
-        />
-
-        <div>
-          <strong>Dailton Bastos</strong>
-          <p>Alguma coisa alguma coisa</p>
-        </div>
-
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </a>
+          <FiChevronRight size={20} color="#cbcbd6" />
+        </a>
+      ))}
     </S.Repositories>
   )
 }
