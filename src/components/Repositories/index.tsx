@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
 import { Repository } from '../../utils/types'
 import * as S from './styles'
@@ -12,7 +13,7 @@ export const Repositories = ({ repositories = [] }: RepositoriesProps) => {
   return (
     <S.Repositories>
       {repositories.map((repository) => (
-        <a href={repository.html_url} key={repository.id}>
+        <Link to={`/repositories/${repository.full_name}`} key={repository.id}>
           <img src={repository.owner.avatar_url} alt={repository.owner.login} />
 
           <div>
@@ -21,7 +22,7 @@ export const Repositories = ({ repositories = [] }: RepositoriesProps) => {
           </div>
 
           <FiChevronRight size={20} color="#cbcbd6" />
-        </a>
+        </Link>
       ))}
     </S.Repositories>
   )

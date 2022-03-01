@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Error } from '../../components/Error'
 import { Form } from '../../components/Form'
+import { Logo } from '../../components/Logo'
 import { Repositories } from '../../components/Repositories'
 import { api } from '../../services/api'
 import { Repository } from '../../utils/types'
@@ -56,6 +57,8 @@ export const Dashboard = () => {
 
   return (
     <>
+      <Logo />
+
       <S.Title>Explore repositórios no Github</S.Title>
 
       <S.Form>
