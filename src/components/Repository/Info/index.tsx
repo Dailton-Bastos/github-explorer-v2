@@ -1,33 +1,35 @@
 import React from 'react'
 
+import { Repository } from '../../../utils/types'
 import * as S from './styles'
 
-export const RepositoryInfo = () => {
+interface RepositoryInfoProps {
+  repository: Repository
+}
+
+export const RepositoryInfo = ({ repository }: RepositoryInfoProps) => {
   return (
     <S.RepositoryInfo>
       <header>
-        <img
-          src="https://avatars.githubusercontent.com/u/36246937?v=4"
-          alt="Dailton"
-        />
+        <img src={repository.owner.avatar_url} alt={repository.owner.login} />
 
         <div>
-          <strong>Dailton-Bastos/Fast-Feet</strong>
-          <p>Description</p>
+          <strong>{repository.full_name}</strong>
+          <p>{repository.description}</p>
         </div>
       </header>
 
       <ul>
         <li>
-          <strong>1808</strong>
+          <strong>{repository.stargazers_count}</strong>
           <span>Stars</span>
         </li>
         <li>
-          <strong>48</strong>
+          <strong>{repository.forks_count}</strong>
           <span>Forks</span>
         </li>
         <li>
-          <strong>76</strong>
+          <strong>{repository.open_issues_count}</strong>
           <span>Issues abertas</span>
         </li>
       </ul>

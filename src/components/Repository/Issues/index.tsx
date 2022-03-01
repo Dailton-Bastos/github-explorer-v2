@@ -1,36 +1,26 @@
 import React from 'react'
 import { FiChevronRight } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
 
+import { Issue } from '../../../utils/types'
 import * as S from './styles'
 
-export const RepositoryIssues = () => {
+interface RepositoryIssuesProps {
+  issues: Issue[]
+}
+
+export const RepositoryIssues = ({ issues = [] }: RepositoryIssuesProps) => {
   return (
     <S.RepositoryIssues>
-      <Link to="/repositories">
-        <div>
-          <strong>alguma coisa</strong>
-          <p>alguma coisa</p>
-        </div>
+      {issues.map((issue) => (
+        <a href={issue.html_url} key={issue.id}>
+          <div>
+            <strong>{issue.title}</strong>
+            <p>{issue.user.login}</p>
+          </div>
 
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </Link>
-      <Link to="/repositories">
-        <div>
-          <strong>alguma coisa</strong>
-          <p>alguma coisa</p>
-        </div>
-
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </Link>
-      <Link to="/repositories">
-        <div>
-          <strong>alguma coisa</strong>
-          <p>alguma coisa</p>
-        </div>
-
-        <FiChevronRight size={20} color="#cbcbd6" />
-      </Link>
+          <FiChevronRight size={20} color="#cbcbd6" />
+        </a>
+      ))}
     </S.RepositoryIssues>
   )
 }
